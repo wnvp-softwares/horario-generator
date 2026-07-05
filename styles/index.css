@@ -1,0 +1,431 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* -------------------------------------------------------------
+DEFINICION DE VARIABLES Y TEMAS
+------------------------------------------------------------- */
+:root {
+    --fondo-color: #F8FAFC;
+    --texto-color: #334155;
+    --items-color: #4F46E5;
+    --ref-color: #6366F1;
+    --danger-color: #EF4444;
+}
+
+/* -------------------------------------------------------------
+DEFINICION DE GENERALIDADES
+------------------------------------------------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    background-color: var(--fondo-color);
+    overflow: hidden;
+}
+
+aside {
+    top: 0;
+    left: 0;
+
+    height: 100vh;
+    width: 400px;
+
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+
+    border-right: solid;
+    border-color: var(--ref-color);
+
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    height: 200px;
+    width: 200px;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+header {
+    position: absolute;
+    padding: 0;
+    top: 20px;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    color: var(--texto-color);
+    margin: 0 0 10px 0;
+}
+
+h2 {
+    text-align: center;
+
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 20px;
+    font-weight: 600;
+
+    color: var(--items-color);
+}
+
+label {
+    text-align: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    font-weight: 600;
+
+    margin: 0 0 5px 0;
+}
+
+input {
+    border: solid;
+    border-width: 1px;
+    border-color: var(--items-color);
+    border-radius: 10px;
+
+    height: 40px;
+    text-align: center;
+    margin-bottom: 15px;
+
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 15px;
+}
+
+p {
+    text-align: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* -------------------------------------------------------------
+DEFINICION DE ESTILOS EN ORDEN CASCADA
+------------------------------------------------------------- */
+
+/* -------------------------------------------------------------
+ASIDE COMPONENTS
+------------------------------------------------------------- */
+.asideBtn {
+    height: 100px;
+    width: 100%;
+
+    border: none;
+    border-radius: 20px;
+    border-bottom: solid;
+    border-bottom-color: var(--ref-color);
+
+    margin-top: 15px;
+
+    background-color: var(--fondo-color);
+    color: var(--texto-color);
+
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    cursor: pointer;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.asideBtn:not(:disabled):hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 5px 3px rgba(0, 0, 0, 0.1);
+}
+
+.asideBtn:disabled {
+    cursor: not-allowed;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* -------------------------------------------------------------
+MAIN COMPONENTS
+------------------------------------------------------------- */
+.vista-docentes {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.action {
+    height: 100px;
+    width: 90%;
+    vertical-align: middle;
+
+    margin: 0 0 15px 0;
+
+    border: none;
+    border-radius: 20px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.action:hover {
+    transform: scale(1.03);
+    box-shadow: 0 5px 5px 3px rgba(0, 0, 0, 0.3);
+}
+
+.agregar {
+    font-size: 50px;
+    font-weight: 600;
+
+    color: var(--fondo-color);
+    background-color: var(--items-color);
+}
+
+.registrado {
+    width: calc(90% - 30px);
+    height: 100px;
+
+    vertical-align: middle;
+
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 15px;
+    gap: 10px;
+
+    padding: 0 15px 0 15px;
+
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--fondo-color);
+
+    border: solid;
+    border-color: var(--items-color);
+    border-width: 1px;
+    border-radius: 20px;
+}
+
+.registered {
+    flex: 10;
+}
+
+.subAction {
+    height: 60px;
+    width: 60px;
+
+    flex: 1;
+
+    border: none;
+    border-radius: 10px;
+    color: var(--fondo-color);
+
+    font-size: 30px;
+
+    box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.3);
+
+    cursor: pointer;
+
+    transition: transform 0.3s ease;
+}
+
+.subAction:hover {
+    transform: scale(1.1);
+}
+
+.editar {
+    background-color: var(--items-color);
+}
+
+.eliminar {
+    background-color: var(--danger-color);
+}
+
+.docente-info {
+    display: flex;
+    flex-direction: column;
+
+    z-index: 999;
+    position: absolute;
+
+    background-color: var(--fondo-color);
+
+    height: 50%;
+    width: 500px;
+
+    border: solid;
+    border-color: var(--items-color);
+    border-width: 1px;
+    border-radius: 30px;
+
+    box-shadow: 0 10px 10px 3px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.form-docente {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-title {
+    border-bottom: solid;
+    border-width: 1px;
+
+    margin-bottom: 40px;
+}
+
+.cancel-form {
+    height: 40px;
+    width: 40px;
+
+    border-radius: 50%;
+    border-color: var(--items-color);
+    border-width: 1px;
+
+    font-size: 20px;
+    vertical-align: middle;
+
+    background-color: var(--fondo-color);
+    color: var(--items-color);
+
+    cursor: pointer;
+
+    margin: 5px 5px 5px 5px;
+
+    position: absolute;
+
+    top: 5px;
+    right: 5px;
+}
+
+.nombre {
+    width: 300px;
+}
+
+.horas {
+    width: 100px;
+}
+
+.form-action {
+    border: none;
+    border-radius: 30px;
+    background-color: var(--items-color);
+    color: var(--fondo-color);
+
+    height: 60px;
+    width: 150px;
+
+    font-size: 18px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 600;
+
+    cursor: pointer;
+    box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.3);
+
+    transition: transform 0.3s ease;
+}
+
+.form-action:hover {
+    transform: scale(1.1);
+}
+
+/* -------------------------------------------------------------
+TOAST
+------------------------------------------------------------- */
+.toast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    height: 300px;
+    width: 500px;
+    padding: 20px;
+
+    background-color: var(--fondo-color);
+    border: solid;
+    border-width: 1px;
+    border-radius: 15px;
+    border-color: var(--items-color);
+
+    box-shadow: 0 5px 5px 3px rgba(0, 0, 0, 0.3);
+}
+
+.actions-toast {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    margin-top: 15px;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    z-index: 1000;
+}
+
+.btn-toast {
+    height: 60px;
+    width: 60px;
+
+    border: none;
+    border-radius: 10px;
+
+    color: var(--fondo-color);
+
+    font-size: 26px;
+
+    cursor: pointer;
+}
+
+.check {
+    background-color: var(--items-color);
+}
+
+.uncheck {
+    background-color: var(--danger-color);
+}
+
+
+/* -------------------------------------------------------------
+GLOBALES DE ULTIMA EJECUCION
+------------------------------------------------------------- */
+.hidden {
+    display: none;
+}

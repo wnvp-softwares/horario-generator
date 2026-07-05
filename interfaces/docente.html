@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docente</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+    <aside>
+        <img src="../public/COBAEJ-logo-deep.png" alt="Logotipo de SiCECOBAEJ">
+        <button class="asideBtn docente">Docentes <i class="ri-user-fill"></i></button>
+        <button class="asideBtn materia">Materia <i class="ri-book-2-line"></i></button>
+        <button class="asideBtn imparte">Imparte <i class="ri-contacts-book-3-fill"></i></button>
+        <button class="asideBtn grupo">Grupos <i class="ri-graduation-cap-fill"></i></button>
+        <button class="asideBtn clase">Clases <i class="ri-time-fill"></i></button>
+        <button class="asideBtn horario">Horarios <i class="ri-calendar-check-line"></i></button>
+
+    </aside>
+
+    <main>
+
+        <header>
+            <h1>DOCENTES <i class="ri-user-fill"></i></h1>
+        </header>
+        <div class="vista-docentes" id="vista-docentes">
+            <h1>HOLA</h1>
+        </div>
+        <!-- AQUI SE GENERARAN LAS CARDS AUTOMATICAS -->
+
+        <div class="docente-info hidden" id="docente-info">
+
+            <button class="cancel-form" id="cancel-form"><i class="ri-close-line"></i></button>
+
+            <form action="submit" class="form-docente" id="form-docente-action">
+                <h2 class="form-title">Docente Form <i class="ri-user-fill"></i></h2>
+                <label for="nombre">Ingresa tu nombre</label>
+                <input type="text" name="nombre" class="docenteInput nombre"
+                    placeholder="Nombre Priori - Apellido Priori" id="input-nombre" required>
+                <label for="horas_disp">¿Disponibilidad?</label>
+                <input type="number" name="horas_disp" class="docenteInput horas" id="input-horas" min="0" value="20">
+
+                <button type="submit" class="form-action relativo" id="form-docente-disparar">Relativo</button>
+            </form>
+        </div>
+
+        <div class="toast hidden" id="toast">
+            <h2 id="toast-title">RELATIVO</h2>
+            <p id="toast-message">RELATIVO... TEXTO RELATIVO</p>
+            <div class="actions-toast">
+                <button class="btn-toast uncheck" id="toast-uncheck"><i class="ri-close-line"></i></button>
+                <button class="btn-toast check" id="toast-check"><i class="ri-check-line"></i></button>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../scripts/index.js"></script>
+</body>
+
+</html>

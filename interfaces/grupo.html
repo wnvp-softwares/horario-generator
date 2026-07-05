@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupos</title>
+    <link rel="stylesheet" href="../styles/grupo.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+    <aside>
+        <img src="../public/COBAEJ-logo-deep.png" alt="Logotipo de SiCECOBAEJ">
+        <button class="asideBtn docente">Docentes <i class="ri-user-fill"></i></button>
+        <button class="asideBtn materia">Materia <i class="ri-book-2-line"></i></button>
+        <button class="asideBtn imparte">Imparte <i class="ri-contacts-book-3-fill"></i></button>
+        <button class="asideBtn grupo">Grupos <i class="ri-graduation-cap-fill"></i></button>
+        <button class="asideBtn clase">Clases <i class="ri-time-fill"></i></button>
+        <button class="asideBtn horario">Horarios <i class="ri-calendar-check-line"></i></button>
+    </aside>
+
+    <main>
+        <header>
+            <h1>GRUPOS <i class="ri-graduation-cap-fill"></i></h1>
+        </header>
+
+        <div class="vista-grupo" id="vista-grupo">
+            <button class="action agregar" id="add-grupo"><i class="ri-add-large-line"></i></button>
+
+            <div class="vista-registrados" id="vista-grupo-registrados">
+                </div>
+        </div>
+
+        <div class="grupo-info hidden" id="grupo-info">
+            <button class="cancel-form" id="cancel-form"><i class="ri-close-line"></i></button>
+            <form action="submit" class="form-grupo" id="form-grupo">
+                <h2 class="form-title">Grupo <i class="ri-graduation-cap-fill"></i></h2>
+                
+                <label for="nombre">Nombre de grupo</label>
+                <input type="text" name="nombre" placeholder="Ej. A, B, 101" required class="grupoInput nombre">
+                
+                <label for="semestre">Semestre</label>
+                <select name="semestre" id="select-semestre" class="grupoInput semestre" required>
+                    <option value="1">1er Semestre</option>
+                    <option value="2">2do Semestre</option>
+                    <option value="3">3er Semestre</option>
+                    <option value="4">4to Semestre</option>
+                    <option value="5">5to Semestre</option>
+                    <option value="6">6to Semestre</option>
+                </select>
+
+                <button type="submit" class="form-action" id="form-grupo-disparar">Crear</button>
+            </form>
+        </div>
+
+        <div class="toast hidden" id="toast">
+            <h2 id="toast-title">RELATIVO</h2>
+            <p id="toast-message">RELATIVO... TEXTO RELATIVO</p>
+            <div class="actions-toast">
+                <button class="btn-toast uncheck" id="toast-uncheck"><i class="ri-close-line"></i></button>
+                <button class="btn-toast check" id="toast-check"><i class="ri-check-line"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../scripts/grupo.js"></script>
+</body>
+
+</html>

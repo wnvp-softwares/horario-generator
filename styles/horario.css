@@ -1,0 +1,438 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --fondo-color: #F8FAFC;
+    --texto-color: #334155;
+    --items-color: #4F46E5;
+    --ref-color: #6366F1;
+    --danger-color: #EF4444;
+
+    /* Paleta semáforo requerida */
+    --color-valido-verde: #DCFCE7;
+    --color-texto-verde: #166534;
+    --color-ocupado-amarillo: #FEF9C3;
+    --color-texto-amarillo: #854D0E;
+    --color-bloqueo-rojo: #FEE2E2;
+    --color-texto-rojo: #991B1B;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: var(--fondo-color);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+aside {
+    height: 100vh;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    border-right: 1px solid var(--ref-color);
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 28px;
+    color: var(--texto-color);
+    margin: 0;
+}
+
+/* -------------------------------------------------------------
+ASIDE COMPONENTS
+------------------------------------------------------------- */
+.asideBtn {
+    height: 100px;
+    width: 100%;
+
+    border: none;
+    border-radius: 20px;
+    border-bottom: solid;
+    border-bottom-color: var(--ref-color);
+
+    margin-top: 15px;
+
+    background-color: var(--fondo-color);
+    color: var(--texto-color);
+
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    cursor: pointer;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.asideBtn:not(:disabled):hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 5px 3px rgba(0, 0, 0, 0.1);
+}
+
+.asideBtn:disabled {
+    cursor: not-allowed;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* -------------------------------------------------------------
+VISTA PRINCIPAL: RECUADROS SIMPLES SÓLO CON NOMBRE
+------------------------------------------------------------- */
+.vista-horario {
+    width: 90%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+}
+
+.action.agregar {
+    height: 70px;
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    font-size: 35px;
+    color: #fff;
+    background-color: var(--items-color);
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+}
+
+.action.agregar:hover {
+    transform: scale(1.01);
+}
+
+.vista-registrados {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* Caja simple solo con el nombre solicitado */
+.registered-simple-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    height: 140px;
+    border: 1px solid var(--items-color);
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.registered-simple-box h2 {
+    font-size: 18px;
+    color: var(--texto-color);
+    margin: 10px 0;
+    text-align: center;
+}
+
+.box-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.subAction {
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.editar {
+    background-color: var(--items-color);
+}
+
+.eliminar {
+    background-color: var(--danger-color);
+}
+
+/* -------------------------------------------------------------
+MODAL COMPLETO EN FULLSCREEN
+------------------------------------------------------------- */
+.horario-fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--fondo-color);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.modal-header {
+    background-color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-cerrar-fullscreen {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modal-body-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Panel de controles Izquierdo */
+.panel-controles {
+    width: 380px;
+    background-color: #fff;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.control-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--texto-color);
+}
+
+.control-group input,
+.control-group select {
+    height: 42px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-family: inherit;
+}
+
+.box-asignacion {
+    background-color: #F1F5F9;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 4px solid var(--items-color);
+}
+
+.box-asignacion h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: var(--items-color);
+}
+
+.info-disponibilidad p {
+    font-size: 13px;
+    margin: 6px 0;
+    text-align: left;
+}
+
+.limite-alerta {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+.btn-guardar-todo {
+    margin-top: auto;
+    height: 55px;
+    background-color: #10B981;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+}
+
+/* Panel Tabla Derecha */
+.panel-tabla {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: #F8FAFC;
+}
+
+.tabla-horario-matriz {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px;
+}
+
+.tabla-horario-matriz th {
+    background-color: var(--items-color);
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.modulo-hora-col {
+    background-color: #E2E8F0;
+    color: var(--texto-color);
+    width: 130px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Celdas del Semáforo Requerido */
+.celda-clase-interactiva {
+    height: 85px;
+    background-color: #fff;
+    border: 1px dashed #CBD5E1;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.celda-clase-interactiva:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.celda-wrapper {
+    padding: 8px;
+    font-size: 12px;
+    color: var(--texto-color);
+}
+
+/* Colores de estado dinámicos */
+.celda-verde {
+    background-color: var(--color-valido-verde) !important;
+    border: 1px solid var(--color-texto-verde) !important;
+}
+
+.celda-verde .celda-wrapper {
+    color: var(--color-texto-verde) !important;
+}
+
+.celda-amarillo {
+    background-color: var(--color-ocupado-amarillo) !important;
+    border: 1px solid var(--color-texto-amarillo) !important;
+}
+
+.celda-amarillo .celda-wrapper {
+    color: var(--color-texto-amarillo) !important;
+}
+
+.celda-rojo {
+    background-color: var(--color-bloqueo-rojo) !important;
+    border: 1px solid var(--color-texto-rojo) !important;
+}
+
+.celda-rojo .celda-wrapper {
+    color: var(--color-texto-rojo) !important;
+}
+
+/* -------------------------------------------------------------
+TOAST
+------------------------------------------------------------- */
+.toast {
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    height: 300px;
+    width: 500px;
+    padding: 20px;
+
+    background-color: var(--fondo-color);
+    border: solid;
+    border-width: 1px;
+    border-radius: 15px;
+    border-color: var(--items-color);
+
+    box-shadow: 0 5px 5px 3px rgba(0, 0, 0, 0.3);
+}
+
+.actions-toast {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    margin-top: 15px;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    z-index: 1000;
+}
+
+.btn-toast {
+    height: 60px;
+    width: 60px;
+
+    border: none;
+    border-radius: 10px;
+
+    color: var(--fondo-color);
+
+    font-size: 26px;
+
+    cursor: pointer;
+}
+
+.check {
+    background-color: var(--items-color);
+}
+
+.uncheck {
+    background-color: var(--danger-color);
+}
+
+/* Generalidades */
+.hidden {
+    display: none !important;
+}

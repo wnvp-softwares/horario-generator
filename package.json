@@ -1,0 +1,32 @@
+{
+  "name": "Generador de Horarios",
+  "version": "dev 0.0.1",
+  "description": "Sistema de gestion y creacion de horarios para su uso unico(por ahora) en COBAEJ TBC #65\nDesarrollado por 'wnvp-softwares', disponible en el GitHub del mismo =D",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "mysql",
+    "desktop",
+    "app",
+    "database",
+    "mysql2"
+  ],
+  "author": "wnvp",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.9.0"
+    }
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "electron": "^43.0.0",
+    "mysql2": "^3.22.5",
+    "path": "^0.12.7"
+  }
+}

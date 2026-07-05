@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imparte</title>
+    <link rel="stylesheet" href="../styles/imparte.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+    <aside>
+        <img src="../public/COBAEJ-logo-deep.png" alt="Logotipo de SiCECOBAEJ">
+        <button class="asideBtn docente">Docentes <i class="ri-user-fill"></i></button>
+        <button class="asideBtn materia">Materia <i class="ri-book-2-line"></i></button>
+        <button class="asideBtn imparte">Imparte <i class="ri-contacts-book-3-fill"></i></button>
+        <button class="asideBtn grupo">Grupos <i class="ri-graduation-cap-fill"></i></button>
+        <button class="asideBtn clase">Clases <i class="ri-time-fill"></i></button>
+        <button class="asideBtn horario">Horarios <i class="ri-calendar-check-line"></i></button>
+    </aside>
+
+    <main>
+        <header>
+            <h1>IMPARTE <i class="ri-contacts-book-3-fill"></i></h1>
+        </header>
+
+        <div class="vista-imparte" id="vista-imparte">
+            <button class="action agregar" id="add-imparte"><i class="ri-add-large-line"></i></button>
+
+            <div class="vista-registrados" id="vista-imparte-registrados">
+                </div>
+        </div>
+
+        <div class="imparte-info hidden" id="imparte-info">
+            <button class="cancel-form" id="cancel-form"><i class="ri-close-line"></i></button>
+            <form action="submit" class="form-imparte" id="form-imparte">
+                <h2 class="form-title">Imparte <i class="ri-contacts-book-3-fill"></i></h2>
+                
+                <label for="docente">Selecciona el docente</label>
+                <select name="id_docente" id="select-docente" class="select docente" required>
+                    </select>
+                
+                <label for="materia">Selecciona la materia</label>
+                <select name="id_materia" id="select-materia" class="select materia" required>
+                    </select>
+
+                <button type="submit" class="form-action" id="form-materia-disparar">Crear</button>
+            </form>
+        </div>
+
+        <div class="toast hidden" id="toast">
+            <h2 id="toast-title">RELATIVO</h2>
+            <p id="toast-message">RELATIVO... TEXTO RELATIVO</p>
+            <div class="actions-toast">
+                <button class="btn-toast uncheck" id="toast-uncheck"><i class="ri-close-line"></i></button>
+                <button class="btn-toast check" id="toast-check"><i class="ri-check-line"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../scripts/imparte.js"></script>
+</body>
+
+</html>
