@@ -24,13 +24,12 @@ ESTADOS Y CACHÉ LOCAL
 let vistaActual;
 let modoFormulario = 'crear';
 
-let listaModulos = []; 
-let listaImparte = []; 
-let horasOcupadasOtrosHorarios = []; // Estructura de ocupaciones en la Base de Datos ajenas a este horario
+let listaModulos = [];
+let listaImparte = [];
+let horasOcupadasOtrosHorarios = [];
 const DIAS = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
 
-// Matriz en memoria del horario actual: { "idModulo-DiaSemana": id_imparte }
-let celdasHorarioMemoria = {}; 
+let celdasHorarioMemoria = {};
 
 /* --------------------------------------------------------
 FUNCIONES GENERALES Y NAVEGACIÓN
@@ -52,7 +51,6 @@ function desactivarActual() {
     });
 }
 
-// Toast de Alerta Reutilizable (Oculta botones de confirmación si es un aviso plano)
 function abrirToast(titulo, mensaje, requiereConfirmacion = false) {
     toast.classList.remove('hidden');
     document.getElementById('toast-title').textContent = titulo;
@@ -60,7 +58,7 @@ function abrirToast(titulo, mensaje, requiereConfirmacion = false) {
 
     if (!requiereConfirmacion) {
         toastCheck.style.display = 'inline-block';
-        toastUncheck.style.display = 'none'; // Esconder cancelar si es un error o aviso estático
+        toastUncheck.style.display = 'none';
     } else {
         toastCheck.style.display = 'inline-block';
         toastUncheck.style.display = 'inline-block';
@@ -76,7 +74,7 @@ async function cargarListaHorarios() {
     try {
         const sql = 'SELECT DISTINCT nombre_horario FROM horarios';
         const response = await window.api.ejecutarQuery(sql, []);
-        
+
         horariosVistaRegistrados.innerHTML = '';
         response.forEach(h => {
             const card = `
@@ -107,13 +105,12 @@ async function cargarCatalogosModal() {
             JOIN materia m ON i.id_materia = m.id
         `;
         listaImparte = await window.api.ejecutarQuery(sqlImparte, []);
-        
-        selectImparte.innerHTML = '<option value="">-- Selecciona una Relación --</option>' + 
+
+        selectImparte.innerHTML = '<option value="">-- Selecciona una Relación --</option>' +
             listaImparte.map(i => `<option value="${i.id}">${i.docente} -> ${i.materia}</option>`).join('');
     } catch (error) { console.error(error); }
 }
 
-// Carga las horas que ocupan TODOS los docentes en otros horarios guardados en la BD
 async function cargarOcupacionesGlobales(nombreHorarioActual) {
     try {
         const sql = `
@@ -137,32 +134,28 @@ function renderizarMatrizInteractiva() {
 
     listaModulos.forEach(modulo => {
         let filaHtml = `<tr>
-            <td class="modulo-hora-col"><strong>${modulo.nombre}</strong><br><small>${modulo.hora_inicio.substring(0,5)} - ${modulo.hora_fin.substring(0,5)}</small></td>
+            <td class="modulo-hora-col"><strong>${modulo.nombre}</strong><br><small>${modulo.hora_inicio.substring(0, 5)} - ${modulo.hora_fin.substring(0, 5)}</small></td>
         `;
 
         DIAS.forEach(dia => {
             const llaveCell = `${modulo.id}-${dia}`;
             const idImparteAsignado = celdasHorarioMemoria[llaveCell];
-            
+
             let claseColor = '';
             let textoCelda = '<em>Vacío</em>';
 
             if (idImparteAsignado) {
-                // Celda ocupada por el usuario en esta sesión local de edición
                 const infoAsignada = listaImparte.find(i => i.id == idImparteAsignado);
                 textoCelda = infoAsignada ? `<strong>${infoAsignada.materia}</strong><br><small>${infoAsignada.docente}</small>` : 'Asignado';
-                claseColor = 'celda-verde'; 
+                claseColor = 'celda-verde';
             } else if (imparteSeleccionado) {
-                // Celda vacía en borrador, pero evaluamos la base de datos externa para el docente o grupo seleccionado
-                
-                // 1. ¿El docente seleccionado tiene ocupada esta hora exacta en OTRO horario? -> ROJO
-                const conflictoDocenteOcupado = horasOcupadasOtrosHorarios.find(o => 
-                    o.id_modulo === modulo.id && 
-                    o.dia_semana === dia && 
+
+                const conflictoDocenteOcupado = horasOcupadasOtrosHorarios.find(o =>
+                    o.id_modulo === modulo.id &&
+                    o.dia_semana === dia &&
                     o.id_docente === imparteSeleccionado.id_docente
                 );
 
-                // 2. ¿La celda está ocupada en otro horario por CUALQUIER otro docente en este mismo grupo? -> AMARILLO
                 const conflictoGrupoOcupado = horasOcupadasOtrosHorarios.find(o =>
                     o.id_modulo === modulo.id &&
                     o.dia_semana === dia &&
@@ -176,7 +169,7 @@ function renderizarMatrizInteractiva() {
                     claseColor = 'celda-amarillo';
                     textoCelda = `<small style="color:var(--color-texto-amarillo)">Grupo Ocupado:<br>${conflictoGrupoOcupado.nombre_materia}</small>`;
                 } else {
-                    claseColor = ''; 
+                    claseColor = '';
                 }
             }
 
@@ -201,24 +194,25 @@ function actualizarContadoresDisponibilidad() {
         return;
     }
 
-    // 1. Calcular cuántas horas tiene ya asignadas este docente en la BD en OTROS horarios
-    let horasConsumidasEnOtrosHorarios = horasOcupadasOtrosHorarios.filter(o => 
+    let horasConsumidasEnOtrosHorarios = horasOcupadasOtrosHorarios.filter(o =>
         o.id_docente === imparteSeleccionado.id_docente
     ).length;
 
-    // 2. Contar lo colocado de forma interactiva en la pantalla en este momento
+    let materiaConsumidaEnOtrosHorarios = horasOcupadasOtrosHorarios.filter(o =>
+        o.nombre_materia === imparteSeleccionado.materia
+    ).length;
+
     let horasColocadasBorradorActual = Object.values(celdasHorarioMemoria).filter(id => id == imparteSeleccionado.id).length;
 
-    // Descuento total real semanal
     let docRestantes = imparteSeleccionado.horas_disponibles - horasConsumidasEnOtrosHorarios - horasColocadasBorradorActual;
-    let matRestantes = imparteSeleccionado.horas_semanales - horasColocadasBorradorActual;
+
+    let matRestantes = imparteSeleccionado.horas_semanales - materiaConsumidaEnOtrosHorarios - horasColocadasBorradorActual;
 
     infoDisponibilidad.innerHTML = `
         <p class="${docRestantes <= 0 ? 'limite-alerta' : ''}"><strong>Disp. Semanal Docente:</strong> ${docRestantes} / ${imparteSeleccionado.horas_disponibles} hrs libres</p>
         <p class="${matRestantes <= 0 ? 'limite-alerta' : ''}"><strong>Horas Restantes Materia:</strong> ${matRestantes} / ${imparteSeleccionado.horas_semanales} hrs</p>
     `;
 
-    // Adjuntamos al objeto del combo en memoria su disponibilidad calculada para usarlo en las validaciones de click
     imparteSeleccionado.horasLibresCalculadas = docRestantes;
 }
 
@@ -237,7 +231,6 @@ tbodyMatriz.addEventListener('click', (e) => {
     const celda = e.target.closest('.celda-clase-interactiva');
     if (!celda) return;
 
-    // Validación Visual de errores si pulsa una celda bloqueada en rojo o amarillo
     if (celda.classList.contains('celda-rojo')) {
         abrirToast('Conflicto de Docente', 'Este docente no puede ser asignado aquí porque ya está impartiendo clases en otro grupo en este mismo módulo horario.');
         return;
@@ -252,7 +245,6 @@ tbodyMatriz.addEventListener('click', (e) => {
     const llaveCell = `${moduloId}-${dia}`;
 
     if (celdasHorarioMemoria[llaveCell]) {
-        // Desasignar hora en borrador (¡Eliminación corregida con el else!)
         delete celdasHorarioMemoria[llaveCell];
         renderizarMatrizInteractiva();
     } else {
@@ -264,7 +256,6 @@ tbodyMatriz.addEventListener('click', (e) => {
 
         const imp = listaImparte.find(i => i.id == idImparte);
 
-        // Validar si el docente ya se quedó sin horas semanales considerando la BD
         if (imp.horasLibresCalculadas <= 0) {
             abrirToast('Sin Disponibilidad', `El docente ${imp.docente} ya no cuenta con horas semanales disponibles.`);
             return;
@@ -292,9 +283,9 @@ agregarHorario.addEventListener('click', async () => {
     selectGrupo.disabled = false;
 
     document.getElementById('modal-dinamico-titulo').textContent = "Crear Nuevo Horario General";
-    
+
     await cargarCatalogosModal();
-    await cargarOcupacionesGlobales(''); 
+    await cargarOcupacionesGlobales('');
     renderizarMatrizInteractiva();
     modalFullscreen.classList.remove('hidden');
 });
@@ -320,8 +311,7 @@ btnGuardarHorario.addEventListener('click', async () => {
 
         for (const [llave, idImparte] of Object.entries(celdasHorarioMemoria)) {
             const [idModulo, diaSemana] = llave.split('-');
-            const sql = `INSERT INTO horarios (nombre_horario, id_grupo, id_imparte, id_modulo, dia_semana) 
-                         VALUES (?, ?, ?, ?, ?)`;
+            const sql = `INSERT INTO horarios (nombre_horario, id_grupo, id_imparte, id_modulo, dia_semana) VALUES (?, ?, ?, ?, ?)`;
             await window.api.ejecutarQuery(sql, [nombreH, grupoId, idImparte, idModulo, diaSemana]);
         }
 
@@ -335,7 +325,7 @@ btnGuardarHorario.addEventListener('click', async () => {
         } else if (error.message) {
             mensajeErrorVisual = `Detalle del Servidor: ${error.message}`;
         }
-        
+
         abrirToast('Error al Guardar Horario', mensajeErrorVisual);
     }
 });
@@ -364,14 +354,14 @@ horariosVistaRegistrados.addEventListener('click', async (e) => {
         inputNombreHorario.disabled = true;
 
         document.getElementById('modal-dinamico-titulo').textContent = `Modificando: ${nombreH}`;
-        
+
         await cargarCatalogosModal();
         await cargarOcupacionesGlobales(nombreH);
 
         try {
             const registros = await window.api.ejecutarQuery('SELECT * FROM horarios WHERE nombre_horario = ?', [nombreH]);
             celdasHorarioMemoria = {};
-            
+
             if (registros.length > 0) {
                 selectGrupo.value = registros[0].id_grupo;
                 selectGrupo.disabled = true;

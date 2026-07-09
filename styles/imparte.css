@@ -20,7 +20,6 @@ body {
     display: flex;
 
     background-color: var(--fondo-color);
-    overflow: hidden;
 }
 
 aside {
@@ -39,6 +38,8 @@ aside {
 
     align-items: center;
     justify-content: center;
+
+    position: sticky;
 }
 
 img {
@@ -176,6 +177,8 @@ MAIN COMPONENTS
 
     align-items: center;
     justify-content: center;
+
+    margin-top: 5rem;
 }
 
 .action {

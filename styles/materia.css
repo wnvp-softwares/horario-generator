@@ -20,7 +20,6 @@ body {
     display: flex;
 
     background-color: var(--fondo-color);
-    overflow: hidden;
 }
 
 aside {
@@ -39,6 +38,8 @@ aside {
 
     align-items: center;
     justify-content: center;
+
+    position: sticky;
 }
 
 img {
@@ -168,6 +169,7 @@ ASIDE COMPONENTS
 MAIN COMPONENTS
 ------------------------------------------------------------- */
 .vista-materia {
+    margin-top: 5rem;
     height: 100%;
     width: 100%;
 
@@ -217,6 +219,8 @@ MAIN COMPONENTS
     height: auto;
     align-items: center;
     justify-content: center;
+    overflow: auto;
+
 }
 
 .registered {
@@ -228,7 +232,7 @@ MAIN COMPONENTS
     padding: 10px;
 
     height: 100px;
-    width: calc(100% - 20px);
+    width: calc(100% - 40px);
 
     border: solid;
     border-color: var(--items-color);

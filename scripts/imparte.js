@@ -71,7 +71,6 @@ function abrirToast(titulo, mensaje) {
     });
 }
 
-// Llena los selectores dinámicamente con los docentes y materias registrados
 async function cargarSelects() {
     try {
         const docentes = await window.api.ejecutarQuery('SELECT id, nombre FROM docentes', []);
@@ -86,7 +85,6 @@ async function cargarSelects() {
 
 async function cargarImparte() {
     try {
-        // Obtenemos los nombres combinando las tablas correspondientes
         const sql = `
             SELECT i.id, d.nombre AS docente, m.nombre AS materia 
             FROM imparte i
